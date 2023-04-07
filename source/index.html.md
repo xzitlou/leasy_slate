@@ -2,14 +2,9 @@
 title: API Reference
 
 language_tabs: # must be one of https://github.com/rouge-ruby/rouge/wiki/List-of-supported-languages-and-lexers
-  - shell
-  - ruby
   - python
-  - javascript
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
 
 includes:
   - errors
@@ -20,226 +15,198 @@ code_clipboard: true
 
 meta:
   - name: description
-    content: Documentation for the Kittn API
+    content: Documentación para API Leasy V1
 ---
 
-# Introduction
+# Introducción
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Bienvenido a la documentación de Leasy API V1" en esta sección encontrarás la forma de leer y escribir la información relacionada con los clientes de Leasy. Podrás encontrar información de Contratos" Facturas" Carros" Perfil" y más.
 
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+Las llamadas las podrás hacer desde Shell" Python" y JavaScript. Podrás visualizar los ejemplos de cada llamada en cada sección.
 
-This example API documentation page was created with [Slate](https://github.com/slatedocs/slate). Feel free to edit it and use it as a base for your own API's documentation.
+## URL base
 
-# Authentication
+La URL base del API es `https://leasy.pe/api/v1/`
 
-> To authorize, use this code:
+Nota: Por temas de seguridad muchas de las llamadas deberán realizarse enviando el token del usuario en los Headers.
 
-```ruby
-require 'kittn'
+# Autenticación
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
+> Get token:
 
 ```python
-import kittn
+import requests
 
-api = kittn.authorize('meowmeowmeow')
+r = requests.post(
+    "https://leasy.pe/api/v1/clients/auth/""
+    json={
+        "document": "document""
+        "password": "password""
+    }
+)
+
+if r.status_code != 200:
+    print(r.text)
+else:
+    print(r.json())
 ```
 
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-```
-
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
-```shell
-curl "http://example.com/api/kittens" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
+> Response [200]:
 
 ```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
+{"token": "token"}
 ```
 
-This endpoint retrieves all kittens.
+> Response [400]:
+
+```json
+{"error": "Las credenciales ingresadas son incorrectas"}
+```
 
 ### HTTP Request
 
-`GET http://example.com/api/kittens`
+`POST https://leasy.pe/api/v1/clients/auth/`
 
-### Query Parameters
+### Body JSON parameters
+
+Parámetro | Valor  | Descripción
+--------- |--------| -----------
+document | String | El número de documento del cliente.
+password | String | La contraseña del cliente.
+
+# Cliente
+
+## Obtener perfil
+
+```python
+import requests
+
+r = requests.get(
+    "http://localhost:8000/api/v1/clients/profile/",
+    headers={
+        "Authentication": "token"
+    }
+)
+
+if r.status_code != 200:
+    print(r.text)
+else:
+    print(r.json())
+
+```
+
+> Response 200:
+
+```json
+{
+	"id": 1,
+	"first_name": "first_name",
+	"last_name": "last_name",
+	"email": "email",
+	"document": "document",
+	"address": "address",
+	"phone_number": "phone_number",
+	"created_at": "2018-09-27",
+	"coins": 0.0,
+	"token": "token",
+	"firebase_token": "firebase_token",
+	"contracts": [{
+		"car": {
+			"id": 1,
+			"hash": "hash",
+			"model": "Cobalt",
+			"brand": "Chevrolet",
+			"soat_file": "/static/files/soat/soat_file.pdf",
+			"secure_file": "/static/files/secure/secure_file.pdf",
+			"license_plate": "license_plate",
+			"year": "2018"
+		},
+		"status": "contract_active",
+		"created_at": "2019-01-05",
+		"hash": "hash",
+		"weekly_amount": 525,
+		"auto_charge": true
+	}],
+	"cards": [{
+		"id": 1,
+		"card_number": "454775******6006",
+		"expiration_month": "03",
+		"expiration_year": "22",
+		"brand": "visa",
+		"kushki_subscription_id": "",
+		"is_kushki_card": false
+	}],
+	"phones": []
+}
+```
+
+> Response 400
+
+```json
+{"error": "Perfil de cliente no encontrado"}
+```
+
+Podrás obtener toda la información relacionada al cliente.
+
+### HTTP Request
+
+`GET https://leasy.pe/api/v1/clients/profile/`
+
+### Headers
 
 Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+--------- |---------| -----------
+Authentication | String  | Se debe enviar el token del usuario
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
+## Obtener tarjetas guardadas
 
 ```python
-import kittn
+import requests
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
+r = requests.get(
+    "http://localhost:8000/api/v1/clients/cards/",
+    headers={
+        "Authentication": "d167172e-f30d-4148-aa57-4bfd77e79551",
+    }
+)
+
+if r.status_code != 200:
+    print(r.text)
+else:
+    print(r.json())
 ```
 
-```shell
-curl "http://example.com/api/kittens/2" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
+> Response 200
 
 ```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
+[{
+	"id": 1,
+	"card_number": "545195XXXXXX5480",
+	"expiration_month": null,
+	"expiration_year": null,
+	"brand": "MASTERCARD",
+	"kushki_subscription_id": "1676385575463000",
+	"is_kushki_card": true
+}, {
+	"id": 2,
+	"card_number": "454775******6006",
+	"expiration_month": "03",
+	"expiration_year": "22",
+	"brand": "visa",
+	"kushki_subscription_id": "",
+	"is_kushki_card": false
+}]
 ```
 
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+Podrás obtener todas las tarjetas guardadas por los clientes.
 
 ### HTTP Request
 
-`GET http://example.com/kittens/<ID>`
+`GET https://leasy.pe/api/v1/clients/cards/`
 
-### URL Parameters
+### Headers
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
-
-## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2" \
-  -X DELETE \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "deleted" : ":("
-}
-```
-
-This endpoint deletes a specific kitten.
-
-### HTTP Request
-
-`DELETE http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
+Parameter | Default | Description
+--------- |---------| -----------
+Authentication | String  | Se debe enviar el token del usuario
 
