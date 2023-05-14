@@ -38,10 +38,10 @@ Nota: Por temas de seguridad muchas de las llamadas deberán realizarse enviando
 import requests
 
 r = requests.post(
-    "https://leasy.pe/api/v1/clients/auth/""
+    "https://leasy.pe/api/v1/clients/auth/",
     json={
-        "document": "document""
-        "password": "password""
+        "document": "document",
+        "password": "password",
     }
 )
 
@@ -82,7 +82,7 @@ password | String | La contraseña del cliente.
 import requests
 
 r = requests.get(
-    "http://localhost:8000/api/v1/clients/profile/",
+    "https://leasy.pe/api/v1/clients/profile/",
     headers={
         "Authentication": "token"
     }
@@ -127,15 +127,6 @@ else:
 		"weekly_amount": 525,
 		"auto_charge": true
 	}],
-	"cards": [{
-		"id": 1,
-		"card_number": "454775******6006",
-		"expiration_month": "03",
-		"expiration_year": "22",
-		"brand": "visa",
-		"kushki_subscription_id": "",
-		"is_kushki_card": false
-	}],
 	"phones": []
 }
 ```
@@ -158,15 +149,72 @@ Parameter | Default | Description
 --------- |---------| -----------
 Authentication | String  | Se debe enviar el token del usuario
 
+## Actualizar contraseña
+
+```python
+import requests
+
+r = requests.patch(
+    "https://leasy.pe/api/v1/clients/password/",
+    headers={
+        "Authentication": "token"
+    },
+    json={
+        "password": "current password",
+        "new_password": "new password",
+        "confirm_new_password": "confirm new password",
+    }
+)
+
+if r.status_code != 200:
+    print(r.text)
+else:
+    print(r.json())
+
+```
+
+> Response 200:
+
+```json
+{"status": 200}
+```
+
+> Response 400
+
+```json
+{"error": ["Error", ...]}
+```
+
+Actualizar la contraseña de un usuario.
+Las contraseña deben tener un mínimo de 6 caracteres y tener al menos 1 número y 1 letra.
+
+### HTTP Request
+
+`GET https://leasy.pe/api/v1/clients/password/`
+
+### Headers
+
+Parameter | Default | Description
+--------- |---------| -----------
+Authentication | String  | Se debe enviar el token del usuario
+
+### Body JSON parameters
+
+Parámetro | Valor  | Descripción
+--------- |--------| -----------
+password | String | La contraseña actual.
+new_password | String | La nueva contraseña.
+confirm_new_password | String | La nueva confirmación de la contraseña.
+
 ## Obtener tarjetas guardadas
 
 ```python
 import requests
 
 r = requests.get(
-    "http://localhost:8000/api/v1/clients/cards/",
+    "https://leasy.pe/api/v1/clients/cards/",
     headers={
-        "Authentication": "d167172e-f30d-4148-aa57-4bfd77e79551",
+        "Authentication": "token",
     }
 )
 
@@ -209,4 +257,204 @@ Podrás obtener todas las tarjetas guardadas por los clientes.
 Parameter | Default | Description
 --------- |---------| -----------
 Authentication | String  | Se debe enviar el token del usuario
+
+## Obtener recargas
+
+```python
+import requests
+
+r = requests.get(
+    "https://leasy.pe/api/v1/clients/recharges/",
+    headers={
+        "Authentication": "token"
+    }
+)
+
+if r.status_code != 200:
+    print(r.text)
+else:
+    print(r.json())
+
+```
+
+> Response 200:
+
+```json
+{
+  "results": [
+    {
+      "method": "method",
+      "amount": 0.0,
+      "created_at": "created_at",
+      "observation": "observations"
+    },
+    {
+      "method": "method",
+      "amount": 0.0,
+      "created_at": "created_at",
+      "observation": "observations"
+    }
+  ],
+  "page": 1
+}
+```
+
+> Response 400
+
+```json
+{"error": "Perfil de cliente no encontrado"}
+```
+
+Obtener todas las recargas que hizo el cliente.
+El resultado estará paginado, por lo que es necesario enviar el valor de `page` en el request; si el valor de `page` no es enviado entonces el sistema asumirá su valor como `1`
+
+### HTTP Request
+
+`GET https://leasy.pe/api/v1/clients/recharges/`
+
+### Headers
+
+Parameter | Default | Description
+--------- |---------| -----------
+Authentication | String  | Se debe enviar el token del usuario
+
+### Body JSON parameters
+
+Parámetro | Valor        | Descripción
+--------- |--------------| -----------
+page | String/Integer | La página de la cuál se obtendrán los resutados de la consulta
+
+# Contrato
+
+## Obtener los invoices de un contrato
+
+```python
+import requests
+
+r = requests.get(
+    "https://leasy.pe/api/v1/contracts/<contract_uuid>/invoices/<status>/",
+    headers={
+        "Authentication": "token"
+    }
+)
+
+if r.status_code != 200:
+    print(r.text)
+else:
+    print(r.json())
+
+```
+
+> Response 200:
+
+```json
+{
+  "results": {
+    "priority": "priority",
+    "id": "id",
+    "hash": "hash",
+    "status": "status_code_name",
+    "due_date": "due_date",
+    "paid_date": "paid_date",
+    "total": 0.0,
+    "created_at": "created_at",
+    "observations": "observations",
+    "type": {
+      "name": "type_name",
+      "code_name": "type_code_name"
+    },
+    "contract": "contract_hash",
+    "total_with_discount": 0.0,
+    "discounts": [
+      {
+        "amount": 0.0,
+        "observations": "observations",
+        "type": "discount_type"
+      },
+      ...
+    ]
+  }
+}
+```
+
+> Response 400
+
+```json
+{"error": ["Contracto no encontrado"]}
+```
+
+Para obtener los invoices de un contrato es necesario enviar el uuid del contrato del cliente, y luego enviar el code name del estado de invoice que se desea solicitar.
+
+### HTTP Request
+
+`GET https://leasy.pe/api/v1/contracts/<contract_uuid>/invoices/<status>/`
+
+### Headers
+
+Parameter | Default | Description
+--------- |---------| -----------
+Authentication | String  | Se debe enviar el token del usuario
+
+### URL parameters
+
+Parámetro | Valor       | Descripción
+--------- |-------------| -----------
+contract_uuid | String | El UUID del contrato del cliente
+status | String | El estado del invoice puede ser uno de los siguientes: `"pendings", "fractions", "freezed", "paid"`, tener en cuenta que es sensitivo al texto, por lo que se debe enviar el minúsculas
+
+## Obtener detalles del carro
+
+```python
+import requests
+
+r = requests.get(
+    "https://leasy.pe/api/v1/contracts/<contract_uuid>/car/",
+    headers={
+        "Authentication": "token"
+    }
+)
+
+if r.status_code != 200:
+    print(r.text)
+else:
+    print(r.json())
+
+```
+
+> Response 200:
+
+```json
+{
+  "license_plate": "license_plate",
+  "model": "model",
+  "brand": "brand",
+  "year": "year",
+  "soat_file": "url",
+  "secure_file": "url"
+}
+```
+
+> Response 400
+
+```json
+{"error": ["Contracto no encontrado"]}
+```
+
+Para obtener los detalles del carro de un contrato es necesario enviar el UUID del contrato.
+
+### HTTP Request
+
+`GET https://leasy.pe/api/v1/contracts/<contract_uuid>/car/`
+
+### Headers
+
+Parameter | Default | Description
+--------- |---------| -----------
+Authentication | String  | Se debe enviar el token del usuario
+
+### URL parameters
+
+Parámetro | Valor       | Descripción
+--------- |-------------| -----------
+contract_uuid | String | El UUID del contrato del cliente
 
