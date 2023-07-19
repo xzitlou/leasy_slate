@@ -26,7 +26,7 @@ Las llamadas las podrás hacer desde Shell" Python" y JavaScript. Podrás visual
 
 ## URL base
 
-La URL base del API es `https://leasy.pe/api/v1/`
+La URL base del API es `https://leasy.pe/api/v2/`
 
 Nota: Por temas de seguridad muchas de las llamadas deberán realizarse enviando el token del usuario en los Headers.
 
@@ -38,7 +38,7 @@ Nota: Por temas de seguridad muchas de las llamadas deberán realizarse enviando
 import requests
 
 r = requests.post(
-    "https://leasy.pe/api/v1/clients/auth/",
+    "https://leasy.pe/api/v2/clients/auth/",
     json={
         "document": "document",
         "password": "password",
@@ -65,7 +65,7 @@ else:
 
 ### HTTP Request
 
-`POST https://leasy.pe/api/v1/clients/auth/`
+`POST https://leasy.pe/api/v2/clients/auth/`
 
 ### Body JSON parameters
 
@@ -82,7 +82,7 @@ password | String | La contraseña del cliente.
 import requests
 
 r = requests.get(
-    "https://leasy.pe/api/v1/clients/profile/",
+    "https://leasy.pe/api/v2/clients/profile/",
     headers={
         "Authentication": "token"
     }
@@ -99,35 +99,53 @@ else:
 
 ```json
 {
-	"id": 1,
-	"first_name": "first_name",
-	"last_name": "last_name",
-	"email": "email",
-	"document": "document",
-	"address": "address",
-	"phone_number": "phone_number",
+	"id": 21,
+	"first_name": "pruebas",
+	"last_name": "apellido",
+	"email": "hola@loualcala.com",
+	"document": "10442008642",
+	"address": "PRUEBAS",
+	"phone_number": "987928878",
 	"created_at": "2018-09-27",
-	"coins": 0.0,
-	"token": "token",
-	"firebase_token": "firebase_token",
-	"contracts": [{
-		"car": {
-			"id": 1,
-			"hash": "hash",
-			"model": "Cobalt",
-			"brand": "Chevrolet",
-			"soat_file": "/static/files/soat/soat_file.pdf",
-			"secure_file": "/static/files/secure/secure_file.pdf",
-			"license_plate": "license_plate",
-			"year": "2018"
-		},
-		"status": "contract_active",
-		"created_at": "2019-01-05",
-		"hash": "hash",
-		"weekly_amount": 525,
-		"auto_charge": true
-	}],
-	"phones": []
+	"coins": 116.0,
+	"token": "<value>",
+	"firebase_token": "<value>",
+	"contracts": [
+		{
+			"car": {
+				"id": 27,
+				"hash": "<value>",
+				"model": "Cobalt",
+				"brand": "Chevrolet",
+				"soat_file": "/static/files/soat/ACFrOgAoaFUTD4A4AnpmopQwUz2-S85W3hGtyH4TRioVEZd8TgD2Qag6y7PMXgqLyNEzEA_uyH61fJ.pdf",
+				"secure_file": "/static/files/secure/ACFrOgAoaFUTD4A4AnpmopQwUz2-S85W3hGtyH4TRioVEZd8TgD2Qag6y7PMXgqLyNEz_DAMViCj.pdf",
+				"license_plate": "PRUEBAS",
+				"year": "2018"
+			},
+			"status": "contract_active",
+			"created_at": "2019-01-05",
+			"hash": "<value>",
+			"weekly_amount": 525,
+			"auto_charge": true,
+			"expired_at": "2021-07-03",
+			"next_payment_date": "2023-07-24",
+			"fine": 0,
+			"delayed_amount": 29910,
+			"total_amount": 0,
+			"paid_amount": 2
+		}
+	],
+	"phones": [
+		{
+			"id": 72,
+			"phone_number": "10442008642"
+		}
+	],
+	"uber_plan": {
+		"name": "Oro",
+		"rate": "5%",
+		"description": ""
+	}
 }
 ```
 
@@ -141,7 +159,7 @@ Podrás obtener toda la información relacionada al cliente.
 
 ### HTTP Request
 
-`GET https://leasy.pe/api/v1/clients/profile/`
+`GET https://leasy.pe/api/v2/clients/profile/`
 
 ### Headers
 
@@ -155,7 +173,7 @@ Authentication | String  | Se debe enviar el token del usuario
 import requests
 
 r = requests.patch(
-    "https://leasy.pe/api/v1/clients/password/",
+    "https://leasy.pe/api/v2/clients/password/",
     headers={
         "Authentication": "token"
     },
@@ -190,7 +208,7 @@ Las contraseña deben tener un mínimo de 6 caracteres y tener al menos 1 númer
 
 ### HTTP Request
 
-`GET https://leasy.pe/api/v1/clients/password/`
+`PATCH https://leasy.pe/api/v2/clients/password/`
 
 ### Headers
 
@@ -212,7 +230,7 @@ confirm_new_password | String | La nueva confirmación de la contraseña.
 import requests
 
 r = requests.get(
-    "https://leasy.pe/api/v1/clients/cards/",
+    "https://leasy.pe/api/v2/clients/cards/",
     headers={
         "Authentication": "token",
     }
@@ -250,7 +268,7 @@ Podrás obtener todas las tarjetas guardadas por los clientes.
 
 ### HTTP Request
 
-`GET https://leasy.pe/api/v1/clients/cards/`
+`GET https://leasy.pe/api/v2/clients/cards/`
 
 ### Headers
 
@@ -264,7 +282,7 @@ Authentication | String  | Se debe enviar el token del usuario
 import requests
 
 r = requests.get(
-    "https://leasy.pe/api/v1/clients/recharges/",
+    "https://leasy.pe/api/v2/clients/recharges/",
     headers={
         "Authentication": "token"
     }
@@ -310,7 +328,7 @@ El resultado estará paginado, por lo que es necesario enviar el valor de `page`
 
 ### HTTP Request
 
-`GET https://leasy.pe/api/v1/clients/recharges/`
+`GET https://leasy.pe/api/v2/clients/recharges/`
 
 ### Headers
 
@@ -332,7 +350,7 @@ page | String/Integer | La página de la cuál se obtendrán los resutados de la
 import requests
 
 r = requests.get(
-    "https://leasy.pe/api/v1/contracts/<contract_uuid>/invoices/<status>/",
+    "https://leasy.pe/api/v2/contracts/<contract_uuid>/invoices/<status>/",
     headers={
         "Authentication": "token"
     }
@@ -387,7 +405,7 @@ Para obtener los invoices de un contrato es necesario enviar el uuid del contrat
 
 ### HTTP Request
 
-`GET https://leasy.pe/api/v1/contracts/<contract_uuid>/invoices/<status>/`
+`GET https://leasy.pe/api/v2/contracts/<contract_uuid>/invoices/<status>/`
 
 ### Headers
 
@@ -408,7 +426,7 @@ status | String | El estado del invoice puede ser uno de los siguientes: `"pendi
 import requests
 
 r = requests.get(
-    "https://leasy.pe/api/v1/contracts/<contract_uuid>/car/",
+    "https://leasy.pe/api/v2/contracts/<contract_uuid>/car/",
     headers={
         "Authentication": "token"
     }
@@ -444,7 +462,7 @@ Para obtener los detalles del carro de un contrato es necesario enviar el UUID d
 
 ### HTTP Request
 
-`GET https://leasy.pe/api/v1/contracts/<contract_uuid>/car/`
+`GET https://leasy.pe/api/v2/contracts/<contract_uuid>/car/`
 
 ### Headers
 
@@ -457,4 +475,427 @@ Authentication | String  | Se debe enviar el token del usuario
 Parámetro | Valor       | Descripción
 --------- |-------------| -----------
 contract_uuid | String | El UUID del contrato del cliente
+
+# Commons
+
+## Obtener los planes de UBER
+
+```python
+import requests
+
+r = requests.get(
+    "https://leasy.pe/api/v2/commons/uber_plans/"
+)
+
+if r.status_code != 200:
+    print(r.text)
+else:
+    print(r.json())
+
+```
+
+> Response 200:
+
+```json
+{
+	"uber_plans": [
+		{
+			"name": "Azul",
+			"code_name": "azul",
+			"discount_percent": 0
+		},
+		{
+			"name": "Oro",
+			"code_name": "oro",
+			"discount_percent": 5
+		},
+		{
+			"name": "Platino",
+			"code_name": "platino",
+			"discount_percent": 7
+		},
+		{
+			"name": "Diamante",
+			"code_name": "diamante",
+			"discount_percent": 10
+		}
+	]
+}
+```
+
+Obtienes las categorías de los planes de UBER disponibles
+
+### HTTP Request
+
+`GET https://leasy.pe/api/v2/commons/uber_plans/`
+
+### Headers
+
+No requiere en envío de Headers
+
+### URL parameters
+
+No requiere el envío de parámetros
+
+## Categoría de gastos
+
+```python
+import requests
+
+r = requests.get(
+    "https://leasy.pe/api/v2/commons/expense_categories/"
+)
+
+if r.status_code != 200:
+    print(r.text)
+else:
+    print(r.json())
+
+```
+
+> Response 200:
+
+```json
+{
+	"categories": [
+		{
+			"name": "Mantenimiento",
+			"code_name": "mantenimiento"
+		},
+		{
+			"name": "Gastos Personales",
+			"code_name": "gastos_personales"
+		},
+		{
+			"name": "Combustible",
+			"code_name": "combustible"
+		},
+		{
+			"name": "Otros",
+			"code_name": "otros"
+		}
+	]
+}
+```
+
+Obtienes las categorías de los gastos
+
+### HTTP Request
+
+`GET https://leasy.pe/api/v2/commons/expense_categories/`
+
+### Headers
+
+No requiere el envío de Headers
+
+### URL parameters
+
+No requiere el envío de parámetros
+
+## Contactos de Emergencias
+
+```python
+import requests
+
+r = requests.get(
+    "https://leasy.pe/api/v2/commons/emergency_contacts/"
+)
+
+if r.status_code != 200:
+    print(r.text)
+else:
+    print(r.json())
+
+```
+
+> Response 200:
+
+```json
+{
+	"steal": [
+		{
+			"contact_name": "Luis Gómez",
+			"in_case": "steal",
+			"phone_number": "965448883",
+			"description": ""
+		},
+		{
+			"contact_name": "Rigoberto",
+			"in_case": "steal",
+			"phone_number": "953884777",
+			"description": ""
+		},
+		{
+			"contact_name": "Fernando Rey",
+			"in_case": "steal",
+			"phone_number": "915111333",
+			"description": ""
+		}
+	],
+	"block": [
+		{
+			"contact_name": "Cobranzas",
+			"in_case": "block",
+			"phone_number": "991337801",
+			"description": ""
+		}
+	],
+	"accidents": [
+		{
+			"contact_name": "Rigoberto",
+			"in_case": "accidents",
+			"phone_number": "953884777",
+			"description": ""
+		},
+		{
+			"contact_name": "Fernando Rey",
+			"in_case": "accidents",
+			"phone_number": "915111333",
+			"description": ""
+		},
+		{
+			"contact_name": "Gianluca",
+			"in_case": "accidents",
+			"phone_number": "963237491",
+			"description": ""
+		}
+	]
+}
+```
+
+Obtienes los teléfonos de contacto en caso de emergencias
+
+### HTTP Request
+
+`GET https://leasy.pe/api/v2/commons/emergency_contacts/`
+
+### Headers
+
+No requiere el envío de Headers
+
+### URL parameters
+
+No requiere el envío de parámetros
+
+## F.A.Q
+
+```python
+import requests
+
+r = requests.get(
+    "https://leasy.pe/api/v2/commons/faqs/"
+)
+
+if r.status_code != 200:
+    print(r.text)
+else:
+    print(r.json())
+
+```
+
+> Response 200:
+
+```json
+[
+	{
+		"title": "Esto no lo es",
+		"content": [
+			"Hola a todos",
+			"Hola a todos 2",
+			"Hola a todos 3"
+		],
+		"created_at": "2023-07-19"
+	},
+	{
+		"title": "Hola a todos",
+		"content": [
+			"Si, esto es el primero content"
+		],
+		"created_at": "2023-07-19"
+	}
+]
+```
+
+Obtienes las preguntas frecuentes
+
+### HTTP Request
+
+`GET https://leasy.pe/api/v2/commons/faqs/`
+
+### Headers
+
+No requiere el envío de Headers
+
+### URL parameters
+
+No requiere el envío de parámetros
+
+## Categoría de tips
+
+```python
+import requests
+
+r = requests.get(
+    "https://leasy.pe/api/v2/tips/categories/"
+)
+
+if r.status_code != 200:
+    print(r.text)
+else:
+    print(r.json())
+
+```
+
+> Response 200:
+
+```json
+[
+	{
+		"name": "Mantenimiento",
+		"code_name": "mantenimiento",
+		"description": ""
+	},
+	{
+		"name": "Reparaciones",
+		"code_name": "reparaciones",
+		"description": ""
+	},
+	{
+		"name": "Limpieza",
+		"code_name": "limpieza",
+		"description": ""
+	},
+	{
+		"name": "Multas y tránsito",
+		"code_name": "multas_y_transito",
+		"description": ""
+	},
+	{
+		"name": "Seguridad vehicular",
+		"code_name": "seguridad_vehicular",
+		"description": ""
+	},
+	{
+		"name": "Presupuesto vehicular",
+		"code_name": "presupuesto_vehicular",
+		"description": ""
+	}
+]
+```
+
+Obtienes las categorías disponibles para los tips
+
+### HTTP Request
+
+`GET https://leasy.pe/api/v2/tips/categories/`
+
+### Headers
+
+No requiere el envío de Headers
+
+### URL parameters
+
+No requiere el envío de parámetros
+
+
+## Tips de Hoy / Populares
+
+```python
+import requests
+
+r = requests.get(
+    "https://leasy.pe/api/v2/tips/today/", # Tips de Hoy
+    # "https://leasy.pe/api/v2/tips/popular/", # Tips populares
+)
+
+if r.status_code != 200:
+    print(r.text)
+else:
+    print(r.json())
+
+```
+
+> Response 200:
+
+```json
+[
+	{
+		"title": null,
+		"content": "Hola a todos, esto es una prueba",
+		"is_popular": false,
+		"category": {
+			"name": "Mantenimiento",
+			"code_name": "mantenimiento",
+			"description": ""
+		},
+		"created_at": "2023-07-19"
+	}
+]
+```
+
+Obtienes los tips de hoy o los populares en orden de creación
+
+### HTTP Request
+
+`GET https://leasy.pe/api/v2/tips/today/`
+
+`GET https://leasy.pe/api/v2/tips/popular/`
+
+### Headers
+
+No requiere el envío de Headers
+
+### URL parameters
+
+No requiere el envío de parámetros
+
+## Tips por categoría
+
+```python
+import requests
+
+r = requests.get(
+    "https://leasy.pe/api/v2/tips/category/<category_codename>/"
+)
+
+if r.status_code != 200:
+    print(r.text)
+else:
+    print(r.json())
+
+```
+
+> Response 200:
+
+```json
+[
+	{
+		"title": null,
+		"content": "Hola a todos, esto es una prueba",
+		"is_popular": true,
+		"category": {
+			"name": "Mantenimiento",
+			"code_name": "mantenimiento",
+			"description": ""
+		},
+		"created_at": "2023-07-19"
+	}
+]
+```
+
+Obtienes los tips por categoría. "No tiene paginación"
+
+### HTTP Request
+
+`GET https://leasy.pe/api/v2/tips/category/<category_codename>/`
+
+### Headers
+
+No requiere el envío de Headers
+
+### URL parameters
+
+Parámetro | Valor       | Descripción
+--------- |-------------| -----------
+category_codename | String | Codename de la categoría. Revisar el endpoint para obtener todas las categorías
 
