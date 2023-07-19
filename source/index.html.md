@@ -15,12 +15,12 @@ code_clipboard: true
 
 meta:
   - name: description
-    content: Documentación para API Leasy V1
+    content: Documentación para API Leasy V2
 ---
 
 # Introducción
 
-Bienvenido a la documentación de Leasy API V1" en esta sección encontrarás la forma de leer y escribir la información relacionada con los clientes de Leasy. Podrás encontrar información de Contratos" Facturas" Carros" Perfil" y más.
+Bienvenido a la documentación de Leasy API V2" en esta sección encontrarás la forma de leer y escribir la información relacionada con los clientes de Leasy. Podrás encontrar información de Contratos" Facturas" Carros" Perfil" y más.
 
 Las llamadas las podrás hacer desde Shell" Python" y JavaScript. Podrás visualizar los ejemplos de cada llamada en cada sección.
 
