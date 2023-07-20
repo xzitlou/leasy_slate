@@ -342,6 +342,69 @@ Parámetro | Valor        | Descripción
 --------- |--------------| -----------
 page | String/Integer | La página de la cuál se obtendrán los resutados de la consulta
 
+## Nuevo lead
+
+```python
+import requests
+
+r = requests.post(
+    "https://leasy.pe/api/v2/clients/new/",
+    json={
+        "first_name": "Lou",
+        "last_name": "Alcalá",
+        "document": "1044200864",
+        "phone_number": "987928878",
+        "email": "hola@loualcala.com",
+        "time_working": "No uso Aplicativo",
+        "utm_source": "APP",
+        "utm_medium": "iOs"
+    }
+)
+
+if r.status_code != 200:
+    print(r.text)
+else:
+    print(r.json())
+
+```
+
+> Response 200:
+
+```json
+{
+  "status": 200
+}
+```
+
+> Response 400
+
+```json
+{"error": [...]}
+```
+
+Registra un nuevo Lead
+
+### HTTP Request
+
+`POST https://leasy.pe/api/v2/clients/new/`
+
+### Headers
+
+No requiere el envío de Headers
+
+### Body JSON parameters
+
+Parámetro | Valor        | Descripción
+--------- |--------------| -----------
+first_name | String | Los nombres del Lead
+last_name | String | Los apellidos del Lead
+document | String | El número de documento de identidad del Lead
+phone_number | String | El número de teléfono del Lead
+email | String | El correo electrónico del Lead
+time_working | String | El tiempo que lleva trabajando con aplicativo, es un valor libre, sin embargo actualmente trabajamos con estos valores: `Menos de 4 meses`, `Más de 4 meses`, `Más de 8 meses`, `Más de 12 meses`, `Más de 18 meses` y `No trabajo con aplicativo`
+utm_source | String | La fuente del Lead, en este caso debería ser `APP`
+utm_medium | String | El medio por el que proviene el Lead, nosotros actualmente usamos `iOs` o `Android`
+
 # Contrato
 
 ## Obtener los invoices de un contrato
