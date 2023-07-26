@@ -511,7 +511,8 @@ else:
   "brand": "brand",
   "year": "year",
   "soat_file": "url",
-  "secure_file": "url"
+  "secure_file": "url",
+  "photos": ["url", "url", ...]
 }
 ```
 
@@ -799,7 +800,7 @@ No requiere el envío de parámetros
 import requests
 
 r = requests.get(
-    "https://leasy.pe/api/v2/tips/categories/"
+    "https://leasy.pe/api/v2/commons/tips/categories/"
 )
 
 if r.status_code != 200:
@@ -850,7 +851,7 @@ Obtienes las categorías disponibles para los tips
 
 ### HTTP Request
 
-`GET https://leasy.pe/api/v2/tips/categories/`
+`GET https://leasy.pe/api/v2/commons/tips/categories/`
 
 ### Headers
 
@@ -867,8 +868,8 @@ No requiere el envío de parámetros
 import requests
 
 r = requests.get(
-    "https://leasy.pe/api/v2/tips/today/", # Tips de Hoy
-    # "https://leasy.pe/api/v2/tips/popular/", # Tips populares
+    "https://leasy.pe/api/v2/commons/tips/today/", # Tips de Hoy
+    # "https://leasy.pe/api/v2/commons/tips/popular/", # Tips populares
 )
 
 if r.status_code != 200:
@@ -900,9 +901,9 @@ Obtienes los tips de hoy o los populares en orden de creación
 
 ### HTTP Request
 
-`GET https://leasy.pe/api/v2/tips/today/`
+`GET https://leasy.pe/api/v2/commons/tips/today/`
 
-`GET https://leasy.pe/api/v2/tips/popular/`
+`GET https://leasy.pe/api/v2/commons/tips/popular/`
 
 ### Headers
 
@@ -918,7 +919,7 @@ No requiere el envío de parámetros
 import requests
 
 r = requests.get(
-    "https://leasy.pe/api/v2/tips/category/<category_codename>/"
+    "https://leasy.pe/api/v2/commons/tips/category/<category_codename>/"
 )
 
 if r.status_code != 200:
@@ -950,7 +951,7 @@ Obtienes los tips por categoría. "No tiene paginación"
 
 ### HTTP Request
 
-`GET https://leasy.pe/api/v2/tips/category/<category_codename>/`
+`GET https://leasy.pe/api/v2/commons/tips/category/<category_codename>/`
 
 ### Headers
 
