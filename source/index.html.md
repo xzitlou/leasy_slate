@@ -120,7 +120,8 @@ else:
 				"soat_file": "/static/files/soat/ACFrOgAoaFUTD4A4AnpmopQwUz2-S85W3hGtyH4TRioVEZd8TgD2Qag6y7PMXgqLyNEzEA_uyH61fJ.pdf",
 				"secure_file": "/static/files/secure/ACFrOgAoaFUTD4A4AnpmopQwUz2-S85W3hGtyH4TRioVEZd8TgD2Qag6y7PMXgqLyNEz_DAMViCj.pdf",
 				"license_plate": "PRUEBAS",
-				"year": "2018"
+				"year": "2018",
+        "photos": ["url", "url", ...]
 			},
 			"status": "contract_active",
 			"created_at": "2019-01-05",
