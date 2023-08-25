@@ -123,17 +123,18 @@ else:
 				"year": "2018",
         "photos": ["url", "url", ...]
 			},
+			"id": 66,
 			"status": "contract_active",
 			"created_at": "2019-01-05",
-			"hash": "<value>",
+			"hash": "0b935679-d439-4463-b24a-1c9d54ce7542",
 			"weekly_amount": 525,
 			"auto_charge": true,
-			"expired_at": "2021-07-03",
-			"next_payment_date": "2023-07-24",
-			"fine": 0,
-			"delayed_amount": 29910,
-			"total_amount": 0,
-			"paid_amount": 2
+			"summary": {
+				"total_invoices": 130,
+				"total_invoices_paid": 1,
+				"total_invoices_pending": 71,
+				"pending_penalties": 0
+			}
 		}
 	],
 	"phones": [
