@@ -99,55 +99,59 @@ else:
 
 ```json
 {
-	"id": 21,
-	"first_name": "pruebas",
-	"last_name": "apellido",
-	"email": "hola@loualcala.com",
-	"document": "10442008642",
-	"address": "PRUEBAS",
-	"phone_number": "987928878",
-	"created_at": "2018-09-27",
-	"coins": 116.0,
-	"token": "<value>",
-	"firebase_token": "<value>",
-	"contracts": [
-		{
-			"car": {
-				"id": 27,
-				"hash": "<value>",
-				"model": "Cobalt",
-				"brand": "Chevrolet",
-				"soat_file": "/static/files/soat/ACFrOgAoaFUTD4A4AnpmopQwUz2-S85W3hGtyH4TRioVEZd8TgD2Qag6y7PMXgqLyNEzEA_uyH61fJ.pdf",
-				"secure_file": "/static/files/secure/ACFrOgAoaFUTD4A4AnpmopQwUz2-S85W3hGtyH4TRioVEZd8TgD2Qag6y7PMXgqLyNEz_DAMViCj.pdf",
-				"license_plate": "PRUEBAS",
-				"year": "2018",
-        "photos": ["url", "url", ...]
-			},
-			"id": 66,
-			"status": "contract_active",
-			"created_at": "2019-01-05",
-			"hash": "0b935679-d439-4463-b24a-1c9d54ce7542",
-			"weekly_amount": 525,
-			"auto_charge": true,
-			"summary": {
-				"total_invoices": 130,
-				"total_invoices_paid": 1,
-				"total_invoices_pending": 71,
-				"pending_penalties": 0
-			}
-		}
-	],
-	"phones": [
-		{
-			"id": 72,
-			"phone_number": "10442008642"
-		}
-	],
-	"uber_plan": {
-		"name": "Oro",
-		"rate": "5%",
-		"description": ""
-	}
+  "id": 21,
+  "first_name": "pruebas",
+  "last_name": "apellido",
+  "email": "hola@loualcala.com",
+  "document": "10442008642",
+  "address": "PRUEBAS",
+  "phone_number": "987928878",
+  "created_at": "2018-09-27",
+  "coins": 116.0,
+  "token": "<value>",
+  "firebase_token": "<value>",
+  "contracts": [
+    {
+      "car": {
+        "id": 27,
+        "hash": "<value>",
+        "model": "Cobalt",
+        "brand": "Chevrolet",
+        "soat_file": "/static/files/soat/ACFrOgAoaFUTD4A4AnpmopQwUz2-S85W3hGtyH4TRioVEZd8TgD2Qag6y7PMXgqLyNEzEA_uyH61fJ.pdf",
+        "secure_file": "/static/files/secure/ACFrOgAoaFUTD4A4AnpmopQwUz2-S85W3hGtyH4TRioVEZd8TgD2Qag6y7PMXgqLyNEz_DAMViCj.pdf",
+        "license_plate": "PRUEBAS",
+        "year": "2018",
+        "photos": [
+          "url",
+          "url",
+          ...
+        ]
+      },
+      "id": 66,
+      "status": "contract_active",
+      "created_at": "2019-01-05",
+      "hash": "0b935679-d439-4463-b24a-1c9d54ce7542",
+      "weekly_amount": 525,
+      "auto_charge": true,
+      "summary": {
+        "total_invoices": 130,
+        "total_invoices_paid": 1,
+        "total_invoices_pending": 71,
+        "pending_penalties": 0
+      }
+    }
+  ],
+  "phones": [
+    {
+      "id": 72,
+      "phone_number": "10442008642"
+    }
+  ],
+  "uber_plan": {
+    "name": "Oro",
+    "rate": "5%",
+    "description": ""
+  }
 }
 ```
 
@@ -306,13 +310,15 @@ else:
       "method": "method",
       "amount": 0.0,
       "created_at": "created_at",
-      "observation": "observations"
+      "observation": "observations",
+      "type": "cash_in"
     },
     {
       "method": "method",
       "amount": 0.0,
       "created_at": "created_at",
-      "observation": "observations"
+      "observation": "observations",
+      "type": "cash_in"
     }
   ],
   "page": 1
