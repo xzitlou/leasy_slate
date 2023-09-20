@@ -621,6 +621,69 @@ Parámetro | Valor  | Descripción
 --------- |--------| -----------
 invoices | List   | La lista de todos los invoices seleccionados para pagar
 
+## Pagar varios invoices
+
+```python
+import requests
+
+r = requests.get(
+    "{{ domain }}/api/v2/invoices/pay-pool/",
+    headers={
+        "Authentication": "token"
+    },
+    json={
+        "invoices": [1, 2, ...]
+    }
+)
+
+if r.status_code != 200:
+    print(r.text)
+else:
+    print(r.json())
+
+```
+
+> Response 200:
+
+```json
+{
+	"message": "Se pagan las facturas: 1, 2 . Por el monto de S/ 499"
+}
+```
+
+> Response 400
+
+```json
+{"error": ["missing parameters"]}
+```
+```json
+{"error": ["client not found"]}
+```
+```json
+{"error": ["El monto a pagar es inválido '0'"]}
+```
+```json
+{"error": ["No tienes suficientes coins: 0"]}
+```
+
+Paga varias cuotas seleccionadas.
+
+### HTTP Request
+
+`GET {{ domain }}/api/v2/invoices/pay-pool/`
+
+### Headers
+
+Parameter | Default | Description
+--------- |---------| -----------
+Authentication | String  | Se debe enviar el token del usuario
+
+### URL parameters
+
+Parámetro | Valor  | Descripción
+--------- |--------| -----------
+invoices | List   | La lista de todos los invoices seleccionados para pagar
+
 # Commons
 
 ## Obtener los planes de UBER
