@@ -626,7 +626,7 @@ invoices | List   | La lista de todos los invoices seleccionados para pagar
 ```python
 import requests
 
-r = requests.get(
+r = requests.post(
     "{{ domain }}/api/v2/invoices/pay-pool/",
     headers={
         "Authentication": "token"
@@ -670,7 +670,7 @@ Paga varias cuotas seleccionadas.
 
 ### HTTP Request
 
-`GET {{ domain }}/api/v2/invoices/pay-pool/`
+`POST {{ domain }}/api/v2/invoices/pay-pool/`
 
 ### Headers
 
