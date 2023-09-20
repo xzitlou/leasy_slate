@@ -26,7 +26,7 @@ Las llamadas las podrás hacer desde Shell" Python" y JavaScript. Podrás visual
 
 ## URL base
 
-La URL base del API es `https://leasy.pe/api/v2/`
+La URL base del API es `{{ domain }}/api/v2/`
 
 Nota: Por temas de seguridad muchas de las llamadas deberán realizarse enviando el token del usuario en los Headers.
 
@@ -38,7 +38,7 @@ Nota: Por temas de seguridad muchas de las llamadas deberán realizarse enviando
 import requests
 
 r = requests.post(
-    "https://leasy.pe/api/v2/clients/auth/",
+    "{{ domain }}/api/v2/clients/auth/",
     json={
         "document": "document",
         "password": "password",
@@ -65,7 +65,7 @@ else:
 
 ### HTTP Request
 
-`POST https://leasy.pe/api/v2/clients/auth/`
+`POST {{ domain }}/api/v2/clients/auth/`
 
 ### Body JSON parameters
 
@@ -82,7 +82,7 @@ password | String | La contraseña del cliente.
 import requests
 
 r = requests.get(
-    "https://leasy.pe/api/v2/clients/profile/",
+    "{{ domain }}/api/v2/clients/profile/",
     headers={
         "Authentication": "token"
     }
@@ -165,7 +165,7 @@ Podrás obtener toda la información relacionada al cliente.
 
 ### HTTP Request
 
-`GET https://leasy.pe/api/v2/clients/profile/`
+`GET {{ domain }}/api/v2/clients/profile/`
 
 ### Headers
 
@@ -179,7 +179,7 @@ Authentication | String  | Se debe enviar el token del usuario
 import requests
 
 r = requests.patch(
-    "https://leasy.pe/api/v2/clients/password/",
+    "{{ domain }}/api/v2/clients/password/",
     headers={
         "Authentication": "token"
     },
@@ -214,7 +214,7 @@ Las contraseña deben tener un mínimo de 6 caracteres y tener al menos 1 númer
 
 ### HTTP Request
 
-`PATCH https://leasy.pe/api/v2/clients/password/`
+`PATCH {{ domain }}/api/v2/clients/password/`
 
 ### Headers
 
@@ -236,7 +236,7 @@ confirm_new_password | String | La nueva confirmación de la contraseña.
 import requests
 
 r = requests.get(
-    "https://leasy.pe/api/v2/clients/cards/",
+    "{{ domain }}/api/v2/clients/cards/",
     headers={
         "Authentication": "token",
     }
@@ -274,7 +274,7 @@ Podrás obtener todas las tarjetas guardadas por los clientes.
 
 ### HTTP Request
 
-`GET https://leasy.pe/api/v2/clients/cards/`
+`GET {{ domain }}/api/v2/clients/cards/`
 
 ### Headers
 
@@ -288,7 +288,7 @@ Authentication | String  | Se debe enviar el token del usuario
 import requests
 
 r = requests.get(
-    "https://leasy.pe/api/v2/clients/recharges/",
+    "{{ domain }}/api/v2/clients/recharges/",
     headers={
         "Authentication": "token"
     }
@@ -336,7 +336,7 @@ El resultado estará paginado, por lo que es necesario enviar el valor de `page`
 
 ### HTTP Request
 
-`GET https://leasy.pe/api/v2/clients/recharges/`
+`GET {{ domain }}/api/v2/clients/recharges/`
 
 ### Headers
 
@@ -356,7 +356,7 @@ page | String/Integer | La página de la cuál se obtendrán los resutados de la
 import requests
 
 r = requests.post(
-    "https://leasy.pe/api/v2/clients/new/",
+    "{{ domain }}/api/v2/clients/new/",
     json={
         "first_name": "Lou",
         "last_name": "Alcalá",
@@ -394,7 +394,7 @@ Registra un nuevo Lead
 
 ### HTTP Request
 
-`POST https://leasy.pe/api/v2/clients/new/`
+`POST {{ domain }}/api/v2/clients/new/`
 
 ### Headers
 
@@ -421,7 +421,7 @@ utm_medium | String | El medio por el que proviene el Lead, nosotros actualmente
 import requests
 
 r = requests.get(
-    "https://leasy.pe/api/v2/contracts/<contract_uuid>/invoices/<status>/",
+    "{{ domain }}/api/v2/contracts/<contract_uuid>/invoices/<status>/",
     headers={
         "Authentication": "token"
     }
@@ -476,7 +476,7 @@ Para obtener los invoices de un contrato es necesario enviar el uuid del contrat
 
 ### HTTP Request
 
-`GET https://leasy.pe/api/v2/contracts/<contract_uuid>/invoices/<status>/`
+`GET {{ domain }}/api/v2/contracts/<contract_uuid>/invoices/<status>/`
 
 ### Headers
 
@@ -497,7 +497,7 @@ status | String | El estado del invoice puede ser uno de los siguientes: `"pendi
 import requests
 
 r = requests.get(
-    "https://leasy.pe/api/v2/contracts/<contract_uuid>/car/",
+    "{{ domain }}/api/v2/contracts/<contract_uuid>/car/",
     headers={
         "Authentication": "token"
     }
@@ -534,7 +534,7 @@ Para obtener los detalles del carro de un contrato es necesario enviar el UUID d
 
 ### HTTP Request
 
-`GET https://leasy.pe/api/v2/contracts/<contract_uuid>/car/`
+`GET {{ domain }}/api/v2/contracts/<contract_uuid>/car/`
 
 ### Headers
 
@@ -548,6 +548,79 @@ Parámetro | Valor       | Descripción
 --------- |-------------| -----------
 contract_uuid | String | El UUID del contrato del cliente
 
+# Invoices
+
+## Obtener resumen de pago a efectuar
+
+```python
+import requests
+
+r = requests.get(
+    "{{ domain }}/api/v2/invoices/pay-summary/",
+    headers={
+        "Authentication": "token"
+    },
+    json={
+        "invoices": [1, 2, ...]
+    }
+)
+
+if r.status_code != 200:
+    print(r.text)
+else:
+    print(r.json())
+
+```
+
+> Response 200:
+
+```json
+{
+	"selected_invoices": [
+		{
+			... # Misma información de Contrato > Obtener los invoices de un contrato"
+		},
+    ...
+	],
+	"active_fractions": [
+		{
+			...
+		}
+	],
+	"invoices_total_amount": 998,
+	"fractions_total_amount": 44,
+	"total_to_pay": 1042
+}
+```
+
+> Response 400
+
+```json
+{"error": ["missing parameters"]}
+```
+```json
+{"error": ["client not found"]}
+```
+
+Obtén el resumen de los invoices que se va a pagar, adicionalmente se obtiene las fracciones activas que serán cobradas.
+El endpoint también trae los montos a pagar por invoices seleccionados, por fracciones activas y por el total.
+
+### HTTP Request
+
+`GET {{ domain }}/api/v2/invoices/pay-summary/`
+
+### Headers
+
+Parameter | Default | Description
+--------- |---------| -----------
+Authentication | String  | Se debe enviar el token del usuario
+
+### URL parameters
+
+Parámetro | Valor  | Descripción
+--------- |--------| -----------
+invoices | List   | La lista de todos los invoices seleccionados para pagar
+
 # Commons
 
 ## Obtener los planes de UBER
@@ -556,7 +629,7 @@ contract_uuid | String | El UUID del contrato del cliente
 import requests
 
 r = requests.get(
-    "https://leasy.pe/api/v2/commons/uber_plans/"
+    "{{ domain }}/api/v2/commons/uber_plans/"
 )
 
 if r.status_code != 200:
@@ -599,7 +672,7 @@ Obtienes las categorías de los planes de UBER disponibles
 
 ### HTTP Request
 
-`GET https://leasy.pe/api/v2/commons/uber_plans/`
+`GET {{ domain }}/api/v2/commons/uber_plans/`
 
 ### Headers
 
@@ -615,7 +688,7 @@ No requiere el envío de parámetros
 import requests
 
 r = requests.get(
-    "https://leasy.pe/api/v2/commons/expense_categories/"
+    "{{ domain }}/api/v2/commons/expense_categories/"
 )
 
 if r.status_code != 200:
@@ -654,7 +727,7 @@ Obtienes las categorías de los gastos
 
 ### HTTP Request
 
-`GET https://leasy.pe/api/v2/commons/expense_categories/`
+`GET {{ domain }}/api/v2/commons/expense_categories/`
 
 ### Headers
 
@@ -670,7 +743,7 @@ No requiere el envío de parámetros
 import requests
 
 r = requests.get(
-    "https://leasy.pe/api/v2/commons/emergency_contacts/"
+    "{{ domain }}/api/v2/commons/emergency_contacts/"
 )
 
 if r.status_code != 200:
@@ -684,54 +757,51 @@ else:
 
 ```json
 {
-	"steal": [
-		{
-			"contact_name": "Luis Gómez",
-			"in_case": "steal",
-			"phone_number": "965448883",
-			"description": ""
-		},
-		{
-			"contact_name": "Rigoberto",
-			"in_case": "steal",
-			"phone_number": "953884777",
-			"description": ""
-		},
-		{
-			"contact_name": "Fernando Rey",
-			"in_case": "steal",
-			"phone_number": "915111333",
-			"description": ""
-		}
-	],
-	"block": [
-		{
-			"contact_name": "Cobranzas",
-			"in_case": "block",
-			"phone_number": "991337801",
-			"description": ""
-		}
-	],
-	"accidents": [
-		{
-			"contact_name": "Rigoberto",
-			"in_case": "accidents",
-			"phone_number": "953884777",
-			"description": ""
-		},
-		{
-			"contact_name": "Fernando Rey",
-			"in_case": "accidents",
-			"phone_number": "915111333",
-			"description": ""
-		},
-		{
-			"contact_name": "Gianluca",
-			"in_case": "accidents",
-			"phone_number": "963237491",
-			"description": ""
-		}
-	]
+  "accidents": {
+    "contacts": [
+      {
+        "contact_name": "Rigoberto",
+        "in_case": "accidents",
+        "phone_number": "953884777",
+        "description": ""
+      },
+      ...
+    ],
+    "info": {
+      "name": "Accidentes",
+      "description": "En caso de accidentes"
+    }
+  },
+  "block": {
+    "contacts": [
+      {
+        "contact_name": "Cobranzas",
+        "in_case": "block",
+        "phone_number": "991337801",
+        "description": ""
+      },
+      ...
+    ],
+    "info": {
+      "name": "Bloqueo de vehículo",
+      "description": "En caso de bloqueos por falta de pago"
+    }
+  },
+  "steal": {
+    "contacts": [
+      {
+        "contact_name": "Luis Gómez",
+        "in_case": "steal",
+        "phone_number": "965448883",
+        "description": ""
+      },
+      ...
+    ],
+    "info": {
+      "name": "Robo",
+      "description": "En caso de robo de vehículo"
+    }
+  }
 }
 ```
 
@@ -739,7 +809,54 @@ Obtienes los teléfonos de contacto en caso de emergencias
 
 ### HTTP Request
 
-`GET https://leasy.pe/api/v2/commons/emergency_contacts/`
+`GET {{ domain }}/api/v2/commons/emergency_contacts/`
+
+### Headers
+
+No requiere el envío de Headers
+
+### URL parameters
+
+No requiere el envío de parámetros
+
+## Contactos problemas de servicio
+
+```python
+import requests
+
+r = requests.get(
+    "{{ domain }}/api/v2/commons/service_contacts/"
+)
+
+if r.status_code != 200:
+    print(r.text)
+else:
+    print(r.json())
+
+```
+
+> Response 200:
+
+```json
+[
+  {
+    "label": "Teléfono",
+    "code_name": "phone_number",
+    "value": "947 947 158"
+  },
+  {
+    "label": "Correo electrónico",
+    "code_name": "email_address",
+    "value": "ventas@leasyauto.com"
+  }
+]
+```
+
+Obtiene los datos de contacto en caso de tener un problema con el servicio
+
+### HTTP Request
+
+`GET {{ domain }}/api/v2/commons/service_contacts/`
 
 ### Headers
 
@@ -755,7 +872,7 @@ No requiere el envío de parámetros
 import requests
 
 r = requests.get(
-    "https://leasy.pe/api/v2/commons/faqs/"
+    "{{ domain }}/api/v2/commons/faqs/"
 )
 
 if r.status_code != 200:
@@ -792,7 +909,7 @@ Obtienes las preguntas frecuentes
 
 ### HTTP Request
 
-`GET https://leasy.pe/api/v2/commons/faqs/`
+`GET {{ domain }}/api/v2/commons/faqs/`
 
 ### Headers
 
@@ -808,7 +925,7 @@ No requiere el envío de parámetros
 import requests
 
 r = requests.get(
-    "https://leasy.pe/api/v2/commons/tips/categories/"
+    "{{ domain }}/api/v2/commons/tips/categories/"
 )
 
 if r.status_code != 200:
@@ -859,7 +976,7 @@ Obtienes las categorías disponibles para los tips
 
 ### HTTP Request
 
-`GET https://leasy.pe/api/v2/commons/tips/categories/`
+`GET {{ domain }}/api/v2/commons/tips/categories/`
 
 ### Headers
 
@@ -876,8 +993,8 @@ No requiere el envío de parámetros
 import requests
 
 r = requests.get(
-    "https://leasy.pe/api/v2/commons/tips/today/", # Tips de Hoy
-    # "https://leasy.pe/api/v2/commons/tips/popular/", # Tips populares
+    "{{ domain }}/api/v2/commons/tips/today/", # Tips de Hoy
+    # "{{ domain }}/api/v2/commons/tips/popular/", # Tips populares
 )
 
 if r.status_code != 200:
@@ -909,9 +1026,9 @@ Obtienes los tips de hoy o los populares en orden de creación
 
 ### HTTP Request
 
-`GET https://leasy.pe/api/v2/commons/tips/today/`
+`GET {{ domain }}/api/v2/commons/tips/today/`
 
-`GET https://leasy.pe/api/v2/commons/tips/popular/`
+`GET {{ domain }}/api/v2/commons/tips/popular/`
 
 ### Headers
 
@@ -927,7 +1044,7 @@ No requiere el envío de parámetros
 import requests
 
 r = requests.get(
-    "https://leasy.pe/api/v2/commons/tips/category/<category_codename>/"
+    "{{ domain }}/api/v2/commons/tips/category/<category_codename>/"
 )
 
 if r.status_code != 200:
@@ -959,7 +1076,7 @@ Obtienes los tips por categoría. "No tiene paginación"
 
 ### HTTP Request
 
-`GET https://leasy.pe/api/v2/commons/tips/category/<category_codename>/`
+`GET {{ domain }}/api/v2/commons/tips/category/<category_codename>/`
 
 ### Headers
 
