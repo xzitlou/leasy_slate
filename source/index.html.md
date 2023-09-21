@@ -555,7 +555,7 @@ contract_uuid | String | El UUID del contrato del cliente
 ```python
 import requests
 
-r = requests.get(
+r = requests.post(
     "{{ domain }}/api/v2/invoices/pay-summary/",
     headers={
         "Authentication": "token"
@@ -607,7 +607,7 @@ El endpoint también trae los montos a pagar por invoices seleccionados, por fra
 
 ### HTTP Request
 
-`GET {{ domain }}/api/v2/invoices/pay-summary/`
+`POST {{ domain }}/api/v2/invoices/pay-summary/`
 
 ### Headers
 
