@@ -940,9 +940,15 @@ else:
 > Response 200:
 
 ```json
-{
-  "contact_name": "Soporte Mecánico",
-  "phone_number": "9999999999"
+
+  "mechanical": {
+    "contact_name": "Soporte Mecánico",
+    "phone_number": "+51987928878"
+  },
+  "emergency": {
+    "contact_name": "Emergencias",
+    "phone_number": "+51987928878"
+  }
 }
 ```
 
