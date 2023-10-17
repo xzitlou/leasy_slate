@@ -940,7 +940,7 @@ else:
 > Response 200:
 
 ```json
-
+{
   "mechanical": {
     "contact_name": "Soporte Mecánico",
     "phone_number": "+51987928878"
@@ -957,6 +957,45 @@ Obtienes los teléfonos de los contacto mecánico
 ### HTTP Request
 
 `GET {{ domain }}/api/v2/commons/mechanical-contacts/`
+
+### Headers
+
+No requiere el envío de Headers
+
+### URL parameters
+
+No requiere el envío de parámetros
+
+## Afiliaciones UBER
+
+```python
+import requests
+
+r = requests.get(
+    "{{ domain }}/api/v2/commons/uber-contacts/"
+)
+
+if r.status_code != 200:
+    print(r.text)
+else:
+    print(r.json())
+
+```
+
+> Response 200:
+
+```json
+{
+  "contact_name": "Afiliaciones UBER",
+  "phone_number": "+51987928878"
+}
+```
+
+Obtienes los teléfonos para solicitar la afiliación a UBER
+
+### HTTP Request
+
+`GET {{ domain }}/api/v2/commons/uber-contacts/`
 
 ### Headers
 
