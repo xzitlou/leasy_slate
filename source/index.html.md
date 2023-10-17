@@ -514,13 +514,46 @@ else:
 
 ```json
 {
-  "license_plate": "license_plate",
-  "model": "model",
-  "brand": "brand",
-  "year": "year",
-  "soat_file": "url",
-  "secure_file": "url",
-  "photos": ["url", "url", ...]
+	"license_plate": "PRUEBAS",
+	"model": "Cobalt",
+	"brand": "Chevrolet",
+	"year": "2018",
+	"photos": [
+		"https://leasy.pe/static/files/va_5dd8e6101a2947c1be5b91c0434fbb85_S9SJqOV.jpg"
+	],
+	"ownership_card": {
+		"owner": "Pruebas Apellido",
+		"due_date": "2024-12-30",
+		"license_plate": "PRUEBAS"
+	},
+	"soat": {
+		"file_url": "https://leasy.pe/static/files/soat/ACFrOgAoaFUTD4A4AnpmopQwUz2-S85W3hGtyH4TRioVEZd8TgD2Qag6y7PMXgqLyNEzEA_uyH61fJ.pdf",
+		"label": "SOAT",
+		"number": "12345678",
+		"owner": null,
+		"due_date": "2024-12-30"
+	},
+	"insurance": {
+		"file_url": "https://leasy.pe/static/files/secure/ACFrOgAoaFUTD4A4AnpmopQwUz2-S85W3hGtyH4TRioVEZd8TgD2Qag6y7PMXgqLyNEz_DAMViCj.pdf",
+		"label": "Licencia de conducir",
+		"number": null,
+		"owner": "Pruebas Apellido",
+		"due_date": "2024-12-30"
+	},
+	"driver_license": {
+		"file_url": null,
+		"label": "Licencia de conducir",
+		"number": null,
+		"owner": "Pruebas Apellido",
+		"due_date": "2024-12-30"
+	},
+	"technical_inspection": {
+		"file_url": null,
+		"label": "Revisión técnica",
+		"number": null,
+		"owner": "Pruebas Apellido",
+		"due_date": "2024-12-30"
+	}
 }
 ```
 
@@ -710,22 +743,26 @@ else:
 		{
 			"name": "Azul",
 			"code_name": "azul",
-			"discount_percent": 0
+			"discount_percent": 0,
+      "description": "..."
 		},
 		{
 			"name": "Oro",
 			"code_name": "oro",
-			"discount_percent": 5
+			"discount_percent": 5,
+      "description": "..."
 		},
 		{
 			"name": "Platino",
 			"code_name": "platino",
-			"discount_percent": 7
+			"discount_percent": 7,
+      "description": "..."
 		},
 		{
 			"name": "Diamante",
 			"code_name": "diamante",
-			"discount_percent": 10
+			"discount_percent": 10,
+      "description": "..."
 		}
 	]
 }
@@ -873,6 +910,45 @@ Obtienes los teléfonos de contacto en caso de emergencias
 ### HTTP Request
 
 `GET {{ domain }}/api/v2/commons/emergency_contacts/`
+
+### Headers
+
+No requiere el envío de Headers
+
+### URL parameters
+
+No requiere el envío de parámetros
+
+## Soporte mecánico
+
+```python
+import requests
+
+r = requests.get(
+    "{{ domain }}/api/v2/commons/mechanical-contacts/"
+)
+
+if r.status_code != 200:
+    print(r.text)
+else:
+    print(r.json())
+
+```
+
+> Response 200:
+
+```json
+{
+  "contact_name": "Soporte Mecánico",
+  "phone_number": "9999999999"
+}
+```
+
+Obtienes los teléfonos de los contacto mecánico
+
+### HTTP Request
+
+`GET {{ domain }}/api/v2/commons/mechanical-contacts/`
 
 ### Headers
 
@@ -1073,7 +1149,7 @@ else:
 [
 	{
 		"title": null,
-		"content": "Hola a todos, esto es una prueba",
+		"content": ["...", "..."],
 		"is_popular": false,
 		"category": {
 			"name": "Mantenimiento",
@@ -1123,7 +1199,7 @@ else:
 [
 	{
 		"title": null,
-		"content": "Hola a todos, esto es una prueba",
+		"content": ["...", "..."],
 		"is_popular": true,
 		"category": {
 			"name": "Mantenimiento",
