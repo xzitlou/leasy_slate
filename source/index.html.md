@@ -363,9 +363,10 @@ r = requests.post(
         "document": "1044200864",
         "phone_number": "987928878",
         "email": "hola@loualcala.com",
-        "time_working": "No uso Aplicativo",
+        "time_working": "",
         "utm_source": "APP",
-        "utm_medium": "iOs"
+        "utm_medium": "iOs",
+        "car_of_interest": "Nuevo"
     }
 )
 
@@ -412,6 +413,7 @@ email | String | El correo electrónico del Lead
 time_working | String | El tiempo que lleva trabajando con aplicativo, es un valor libre, sin embargo actualmente trabajamos con estos valores: `Menos de 4 meses`, `Más de 4 meses`, `Más de 8 meses`, `Más de 12 meses`, `Más de 18 meses` y `No trabajo con aplicativo`
 utm_source | String | La fuente del Lead, en este caso debería ser `APP`
 utm_medium | String | El medio por el que proviene el Lead, nosotros actualmente usamos `iOs` o `Android`
+car_of_interest | String | `Nuevo` o `Semi nuevo`
 
 # Contrato
 
