@@ -1274,3 +1274,526 @@ Parámetro | Valor       | Descripción
 --------- |-------------| -----------
 category_codename | String | Codename de la categoría. Revisar el endpoint para obtener todas las categorías
 
+# Finanzas
+
+## Obtener los incomes
+
+```python
+import requests
+
+r = requests.get(
+    "{{ domain }}/api/v2/finances/income/",
+    headers={
+        "Authentication": "token"
+    }
+)
+
+if r.status_code != 200:
+    print(r.text)
+else:
+    print(r.json())
+
+```
+
+> Response 200:
+
+```json
+[
+	{
+		"amount": "10.00",
+		"created_at": "2023-11-07 02:10:25"
+	},
+	{
+		"amount": "12.40",
+		"created_at": "2023-11-07 02:09:00"
+	}
+]
+```
+
+> Response 400
+
+```json
+{"error": ["..."]}
+```
+
+Obtén todos los incomes registrados
+
+### HTTP Request
+
+`GET {{ domain }}/api/v2/finances/income/`
+
+### Headers
+
+Parameter | Default | Description
+--------- |---------| -----------
+Authentication | String  | Se debe enviar el token del usuario
+
+## Registrar incomes
+
+```python
+import requests
+
+r = requests.post(
+    "{{ domain }}/api/v2/finances/income/",
+    headers={
+        "Authentication": "token"
+    },
+    json={
+      "amount": 10
+    }
+)
+
+if r.status_code != 200:
+    print(r.text)
+else:
+    print(r.json())
+
+```
+
+> Response 200:
+
+```json
+{
+	"status": true
+}
+```
+
+> Response 400
+
+```json
+{"error": ["..."]}
+```
+
+Registra los nuevos incomes
+
+### HTTP Request
+
+`POST {{ domain }}/api/v2/finances/income/`
+
+### Headers
+
+Parameter | Default | Description
+--------- |---------| -----------
+Authentication | String  | Se debe enviar el token del usuario
+
+### URL parameters
+
+Parámetro | Valor   | Descripción
+--------- |---------| -----------
+amount | Decimal | El monto total a registrar
+
+## Resumen de incomes
+
+```python
+import requests
+
+r = requests.get(
+    "{{ domain }}/api/v2/finances/income/summary/",
+    headers={
+        "Authentication": "token"
+    }
+)
+
+if r.status_code != 200:
+    print(r.text)
+else:
+    print(r.json())
+
+```
+
+> Response 200:
+
+```json
+{
+	"message": "success",
+	"start_date": null,
+	"end_date": null,
+	"month": "November",
+	"total": "22.40",
+	"details": [
+		{
+			"amount": "10.00",
+			"date": "2023-11-07"
+		},
+		{
+			"amount": "12.40",
+			"date": "2023-11-07"
+		}
+	]
+}
+```
+
+> Response 400
+
+```json
+{"error": ["..."]}
+```
+
+Obtén todos los incomes registrados en un periodo
+
+### HTTP Request
+
+`GET {{ domain }}/api/v2/finances/income/summary/`
+
+### Headers
+
+Parameter | Default | Description
+--------- |---------| -----------
+Authentication | String  | Se debe enviar el token del usuario
+
+### URL parameters
+
+Parámetro | Valor   | Descripción
+--------- |---------| -----------
+month | Integer | El mes que deseas consultar
+year | Integer | El año que deseas consultar
+start_date | String  | La fecha de inicio YYYY-MM-DD
+end_date | String  | La fecha de fin YYYY-MM-DD
+
+## Obtener expenses
+
+```python
+import requests
+
+r = requests.get(
+    "{{ domain }}/api/v2/finances/expense/",
+    headers={
+        "Authentication": "token"
+    }
+)
+
+if r.status_code != 200:
+    print(r.text)
+else:
+    print(r.json())
+
+```
+
+> Response 200:
+
+```json
+[
+	{
+		"amount": "13.00",
+		"created_at": "2023-11-07 02:24:57",
+		"category": {
+			"name": "testing",
+			"icon": "",
+			"code_name": "testing"
+		}
+	},
+	{
+		"amount": "13.00",
+		"created_at": "2023-11-07 02:24:47",
+		"category": {
+			"name": "testing",
+			"icon": "",
+			"code_name": "testing"
+		}
+	}
+]
+```
+
+> Response 400
+
+```json
+{"error": ["..."]}
+```
+
+Obtén todos los expenses registrados
+
+### HTTP Request
+
+`GET {{ domain }}/api/v2/finances/expense/`
+
+### Headers
+
+Parameter | Default | Description
+--------- |---------| -----------
+Authentication | String  | Se debe enviar el token del usuario
+
+## Registrar expenses
+
+```python
+import requests
+
+r = requests.post(
+    "{{ domain }}/api/v2/finances/expense/",
+    headers={
+        "Authentication": "token"
+    },
+    json={
+      "amount": 13,
+      "category": "testing"
+    }
+)
+
+if r.status_code != 200:
+    print(r.text)
+else:
+    print(r.json())
+
+```
+
+> Response 200:
+
+```json
+{
+	"status": true
+}
+```
+
+> Response 400
+
+```json
+{"error": ["..."]}
+```
+
+Registra nuevos expenses
+
+### HTTP Request
+
+`POST {{ domain }}/api/v2/finances/expense/`
+
+### Headers
+
+Parameter | Default | Description
+--------- |---------| -----------
+Authentication | String  | Se debe enviar el token del usuario
+
+### URL parameters
+
+Parámetro | Valor   | Descripción
+--------- |---------| -----------
+amount | Decimal | El monto a registrar
+category | String  | El code_name de la categoría
+
+## Obtener categorias de expenses
+
+```python
+import requests
+
+r = requests.get(
+    "{{ domain }}/api/v2/finances/expense/categories/",
+    headers={
+        "Authentication": "token"
+    }
+)
+
+if r.status_code != 200:
+    print(r.text)
+else:
+    print(r.json())
+
+```
+
+> Response 200:
+
+```json
+[
+	{
+		"name": "testing",
+		"icon": "",
+		"code_name": "testing"
+	}
+]
+```
+
+> Response 400
+
+```json
+{"error": ["..."]}
+```
+
+Obtén todas las categorías de los expenses habilitados
+
+### HTTP Request
+
+`GET {{ domain }}/api/v2/finances/expense/categories/`
+
+### Headers
+
+Parameter | Default | Description
+--------- |---------| -----------
+Authentication | String  | Se debe enviar el token del usuario
+
+## Obtener summary de expenses
+
+```python
+import requests
+
+r = requests.get(
+    "{{ domain }}/api/v2/finances/expense/summary/?month=11",
+    headers={
+        "Authentication": "token"
+    }
+)
+
+if r.status_code != 200:
+    print(r.text)
+else:
+    print(r.json())
+
+```
+
+> Response 200:
+
+```json
+{
+	"message": "success",
+	"start_date": null,
+	"end_date": null,
+	"month": "November",
+	"total": "26.00",
+	"details": [
+		{
+			"amount": "13.00",
+			"category_name": "testing",
+			"date": "2023-11-07"
+		},
+		{
+			"amount": "13.00",
+			"category_name": "testing",
+			"date": "2023-11-07"
+		}
+	]
+}
+```
+
+> Response 400
+
+```json
+{"error": ["..."]}
+```
+
+Obtén todos los expenses en un rango de fecha
+
+### HTTP Request
+
+`GET {{ domain }}/api/v2/finances/expense/summary/`
+
+### Headers
+
+Parameter | Default | Description
+--------- |---------| -----------
+Authentication | String  | Se debe enviar el token del usuario
+
+### URL parameters
+
+Parámetro | Valor   | Descripción
+--------- |---------| -----------
+month | Integer | El mes que deseas consultar
+year | Integer | El año que deseas consultar
+start_date | String  | La fecha de inicio YYYY-MM-DD
+end_date | String  | La fecha de fin YYYY-MM-DD
+
+## Financial summary
+
+```python
+import requests
+
+r = requests.get(
+    "{{ domain }}/api/v2/finances/summary/",
+    headers={
+        "Authentication": "token"
+    }
+)
+
+if r.status_code != 200:
+    print(r.text)
+else:
+    print(r.json())
+
+```
+
+> Response 200:
+
+```json
+{
+	"message": "success",
+	"start_date": null,
+	"end_date": null,
+	"month": "November",
+	"total_income": "22.40",
+	"total_expense": "26.00",
+	"total_balance": "-3.60",
+	"details": {
+		"incomes": [],
+		"expenses": []
+	}
+}
+```
+
+> Response 400
+
+```json
+{"error": ["..."]}
+```
+
+Obtén todos los incomes registrados
+
+### HTTP Request
+
+`GET {{ domain }}/api/v2/finances/summary/`
+
+### Headers
+
+Parameter | Default | Description
+--------- |---------| -----------
+Authentication | String  | Se debe enviar el token del usuario
+
+### URL parameters
+
+Parámetro | Valor   | Descripción
+--------- |---------| -----------
+month | Integer | El mes que deseas consultar
+year | Integer | El año que deseas consultar
+start_date | String  | La fecha de inicio YYYY-MM-DD
+end_date | String  | La fecha de fin YYYY-MM-DD
+
+## Financial balance
+
+```python
+import requests
+
+r = requests.get(
+    "{{ domain }}/api/v2/finances/summary/balance/",
+    headers={
+        "Authentication": "token"
+    }
+)
+
+if r.status_code != 200:
+    print(r.text)
+else:
+    print(r.json())
+
+```
+
+> Response 200:
+
+```json
+{
+	"total_income": "22.40",
+	"total_expense": "26.00",
+	"total_balance": "-3.60"
+}
+```
+
+> Response 400
+
+```json
+{"error": ["..."]}
+```
+
+Obtén todos los incomes registrados
+
+### HTTP Request
+
+`GET {{ domain }}/api/v2/finances/summary/balance/`
+
+### Headers
+
+Parameter | Default | Description
+--------- |---------| -----------
+Authentication | String  | Se debe enviar el token del usuario
