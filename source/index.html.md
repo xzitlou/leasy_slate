@@ -124,7 +124,7 @@ else:
         "photos": [
           "url",
           "url",
-          ...
+          "..."
         ]
       },
       "id": 66,
@@ -138,6 +138,9 @@ else:
         "total_invoices_paid": 1,
         "total_invoices_pending": 71,
         "pending_penalties": 0
+      },
+      "kushki_keys": {
+        "pk": "..."
       }
     }
   ],
@@ -281,6 +284,60 @@ Podrás obtener todas las tarjetas guardadas por los clientes.
 Parameter | Default | Description
 --------- |---------| -----------
 Authentication | String  | Se debe enviar el token del usuario
+
+## Guardar tarjeta kushki
+
+```python
+import requests
+
+r = requests.post(
+    "{{ domain }}/api/v2/clients/kushki-cards/",
+    headers={
+        "Authentication": "token",
+    },
+    json={
+        "token": "card token",
+    }
+)
+
+if r.status_code != 200:
+    print(r.text)
+else:
+    print(r.json())
+```
+
+> Response 200
+
+```json
+{
+	"id": 1,
+	"card_number": "545195XXXXXX5480",
+	"expiration_month": null,
+	"expiration_year": null,
+	"brand": "MASTERCARD",
+	"kushki_subscription_id": "1676385575463000",
+	"is_kushki_card": true
+}
+```
+
+Guardar una nueva tarjeta de Kushki tokenizada
+
+### HTTP Request
+
+`POST {{ domain }}/api/v2/clients/kushki-cards/`
+
+### Headers
+
+Parameter | Default | Description
+--------- |---------| -----------
+Authentication | String  | Se debe enviar el token del usuario
+
+
+### Body JSON parameters
+
+Parámetro | Valor        | Descripción
+--------- |--------------| -----------
+token | String | El token de la tarjeta guardada
 
 ## Obtener recargas
 
