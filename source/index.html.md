@@ -209,7 +209,7 @@ else:
 > Response 400
 
 ```json
-{"error": ["Error", ...]}
+{"error": ["Error", "..."]}
 ```
 
 Actualizar la contraseña de un usuario.
@@ -445,7 +445,7 @@ else:
 > Response 400
 
 ```json
-{"error": [...]}
+{"error": ["..."]}
 ```
 
 Registra un nuevo Lead
@@ -519,7 +519,6 @@ else:
         "observations": "observations",
         "type": "discount_type"
       },
-      ...
     ]
   }
 }
@@ -653,7 +652,7 @@ r = requests.post(
         "Authentication": "token"
     },
     json={
-        "invoices": [1, 2, ...]
+        "invoices": [1, 2, ]
     }
 )
 
@@ -669,15 +668,10 @@ else:
 ```json
 {
 	"selected_invoices": [
-		{
-			... # Misma información de Contrato > Obtener los invoices de un contrato"
-		},
-    ...
+    # Misma información de Contrato > Obtener los invoices de un contrato"
 	],
 	"active_fractions": [
-		{
-			...
-		}
+		{}
 	],
 	"invoices_total_amount": 998,
 	"fractions_total_amount": 44,
@@ -725,7 +719,7 @@ r = requests.post(
         "Authentication": "token"
     },
     json={
-        "invoices": [1, 2, ...]
+        "invoices": [1, 2, ]
     }
 )
 
