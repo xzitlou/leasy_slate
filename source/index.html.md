@@ -681,7 +681,8 @@ else:
 	],
 	"invoices_total_amount": 998,
 	"fractions_total_amount": 44,
-	"total_to_pay": 1042
+	"total_to_pay": 1042,
+  "total_to_recharge": 20
 }
 ```
 
@@ -924,7 +925,6 @@ else:
         "phone_number": "953884777",
         "description": ""
       },
-      ...
     ],
     "info": {
       "name": "Accidentes",
@@ -939,7 +939,6 @@ else:
         "phone_number": "991337801",
         "description": ""
       },
-      ...
     ],
     "info": {
       "name": "Bloqueo de vehículo",
@@ -954,7 +953,6 @@ else:
         "phone_number": "965448883",
         "description": ""
       },
-      ...
     ],
     "info": {
       "name": "Robo",
