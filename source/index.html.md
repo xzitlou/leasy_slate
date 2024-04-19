@@ -407,6 +407,65 @@ Parámetro | Valor        | Descripción
 --------- |--------------| -----------
 page | String/Integer | La página de la cuál se obtendrán los resutados de la consulta
 
+
+## Hacer recargas kushki
+
+```python
+import requests
+
+r = requests.post(
+  "{{ domain }}/api/v2/clients/recharges/",
+  headers={
+    "Authentication": "token"
+  },
+  json={
+    "amount": 100,
+    "card_id": 24,
+    "device_token": "abc1234567"
+  }
+)
+
+if r.status_code != 200:
+  print(r.text)
+else:
+  print(r.json())
+
+```
+
+> Response 200:
+
+```json
+{
+  "status": 200
+}
+```
+
+> Response 400
+
+```json
+{"error": "errors"}
+```
+
+Realiza una recarga a una tarjeta guardada Kushki.
+
+### HTTP Request
+
+`POST {{ domain }}/api/v2/clients/recharges/`
+
+### Headers
+
+Parameter | Default | Description
+--------- |---------| -----------
+Authentication | String  | Se debe enviar el token del usuario
+
+### Body JSON parameters
+
+Parámetro | Valor   | Descripción
+--------- |---------| -----------
+amount | Integer | El monto a recargar
+card_id | Integer | El ID de la tarjeta que se desea utilizar
+device_token | String  | El device token generado por kushki en el frontend
+
 ## Nuevo lead
 
 ```python
@@ -667,12 +726,8 @@ else:
 
 ```json
 {
-	"selected_invoices": [
-    # Misma información de Contrato > Obtener los invoices de un contrato"
-	],
-	"active_fractions": [
-		{}
-	],
+	"selected_invoices": ["Misma información de Contrato > Obtener los invoices de un contrato"],
+	"active_fractions": ["Misma información de Contrato > Obtener los invoices de un contrato"],
 	"invoices_total_amount": 998,
 	"fractions_total_amount": 44,
 	"total_to_pay": 1042,
